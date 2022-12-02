@@ -16,6 +16,12 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+# URL we can use in our templates for the files
+MEDIA_URL = "/media/"
+# absolute filesystem path to the directory for user-uploaded files
+MEDIA_ROOT = BASE_DIR / "media"
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
