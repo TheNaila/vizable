@@ -5,10 +5,14 @@ import * as Permissions from "expo-permissions";
 import React, { useEffect, useReducer, useRef, useState } from "react";
 
 import {
-  StatusBar,
   Text,
-  Button,
   View,
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+  StatusBar,
+  Platform,
+  NativeModules,
 } from "react-native";
 
 //setting our initial app state
@@ -19,13 +23,19 @@ const cameraState = {
 };
 
 export default function App() {
+
+  const deviceLanguage =
+      Platform.OS === 'ios'
+        ? NativeModules.SettingsManager.settings.AppleLocale ||
+          NativeModules.SettingsManager.settings.AppleLanguages[0] //iOS 13 // make diff selection
+        : NativeModules.I18nManager.localeIdentifier;
   state = cameraState;
 
 //checking device permissions for camera
   const [hasPermission, setHasPermission] = useState(null);
   const { cameraType } = state;
 
-  const camera =  useState();
+  const camera =  useRef();
 
 //function for clicking picture
   const clickPicture = async () => {    
@@ -63,18 +73,42 @@ export default function App() {
   if (hasPermission === false) {
     return <Text>Please provide access to your camera</Text>;
   }
-
+//#E5E5E5
 
   return (
     <View style={{ flex: 1 }}>
-      <StatusBar />
+      <StatusBar/>
+      <View style={{flex:.5, backgroundColor: "#14213D", justifyContent:"center"}}>
+        <Image source = {require("./logo2-250.png")} style={{alignSelf:"center", flex:1}}/>
+      </View>
+      <Text style = {{flex: 1, backgroundColor: "#E5E5E5", marginVertical: 10, marginVertical: 10, adjustFontSizeToFit:true, allowFontScaling:true} }> 
+      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard
+      {'\n'}
+      {'\n'}
+      {deviceLanguage}
+      </Text>
       <Camera
         ref={camera}
-        style={{ flex: 1 }}
+        style={{ flex: 3 }}
         type={cameraType}
       />
-      <Button title ="Take Picture" size={100} onPress={clickPicture} />
+      <TouchableOpacity  style = {styles.btnSub} onPress = {clickPicture} >
+        <Text style = {{fontSize: 20, adjustFontSizeToFit: true, allowFontScaling: true, fontWeight: "bold", color: "white"}}>My button</Text>
+      </TouchableOpacity>
+      
       </View>
 
+
   );
+  
 }
+
+const styles = StyleSheet.create({
+  btnSub: {
+    flex: 1, 
+    backgroundColor: "#14213D",
+    alignItems: "center",
+    justifyContent: "center",
+    
+  }
+})
