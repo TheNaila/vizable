@@ -4,6 +4,7 @@ import * as MediaLibrary from "expo-media-library";
 import * as Permissions from "expo-permissions";
 import React, { useEffect, useReducer, useRef, useState } from "react";
 
+
 import {
   Text,
   View,
@@ -29,6 +30,7 @@ export default function App() {
         ? NativeModules.SettingsManager.settings.AppleLocale ||
           NativeModules.SettingsManager.settings.AppleLanguages[0] //iOS 13 // make diff selection
         : NativeModules.I18nManager.localeIdentifier;
+        
   state = cameraState;
 
 //checking device permissions for camera
@@ -76,24 +78,22 @@ export default function App() {
 //#E5E5E5
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, backgroundColor:  "#BDC0FE", }}>
       <StatusBar/>
-      <View style={{flex:.5, backgroundColor: "#14213D", justifyContent:"center"}}>
-        <Image source = {require("./logo2-250.png")} style={{alignSelf:"center", flex:1}}/>
-      </View>
-      <Text style = {{flex: 1, backgroundColor: "#E5E5E5", marginVertical: 10, marginVertical: 10, adjustFontSizeToFit:true, allowFontScaling:true} }> 
-      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard
+      <Text style = {{fontFamily: "monospace", fontSize: 25, fontWeight: "bold", color: "#8187FD", margin: "1%", alignSelf:"center"}}>VIZABLE</Text>
+      <Text style = {{flex: 1, backgroundColor: "white", maxHeight: "10%", borderRadius: 20, margin: "2%"} }> 
+                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard
       {'\n'}
       {'\n'}
       {deviceLanguage}
       </Text>
       <Camera
         ref={camera}
-        style={{ flex: 3 }}
+        style={{ flex: 5}}
         type={cameraType}
       />
       <TouchableOpacity  style = {styles.btnSub} onPress = {clickPicture} >
-        <Text style = {{fontSize: 20, adjustFontSizeToFit: true, allowFontScaling: true, fontWeight: "bold", color: "white"}}>My button</Text>
+        <Text style = {{fontSize: 20, adjustFontSizeToFit: true, allowFontScaling: true, fontWeight: "bold", color: "white"}}>Take Picture</Text>
       </TouchableOpacity>
       
       </View>
@@ -106,9 +106,12 @@ export default function App() {
 const styles = StyleSheet.create({
   btnSub: {
     flex: 1, 
-    backgroundColor: "#14213D",
+    maxHeight: "10%",
+    backgroundColor: "#8187FD",
     alignItems: "center",
     justifyContent: "center",
+    margin: "2%", 
+    borderRadius: 20
     
   }
 })
