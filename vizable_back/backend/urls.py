@@ -21,18 +21,18 @@ from django.urls import path, include
 from django.conf.urls.static import static
 
 from rest_framework import routers
-from . import views
+# from . import views
 
 router = routers.DefaultRouter()
-router.register('api', views.ApprovalView)
+# router.register('api', views.RetrievalView)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include(router.urls)),
-    path('status/',views.getcaption),
-    # path("", include("posts.urls")),
+    # path('api/', include(router.urls)),
+    # path('status/',views.getcaption),
+    path("api/", include("api.urls")),
 ]
 
-# if settings.DEBUG:
-#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

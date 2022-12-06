@@ -1,4 +1,3 @@
-//Concept and code reference credits to Aditya's tutorials and freecodecamp
 import { Camera } from "expo-camera";
 import * as MediaLibrary from "expo-media-library";
 import * as Permissions from "expo-permissions";
@@ -37,7 +36,7 @@ export default function App() {
   };
 
 //saving the image to camera roll
-  const savePicture = async (photo: string) => {
+  const savePicture = async (photo) => {
     const { status } = await Permissions.askAsync(Permissions.MEDIA_LIBRARY); 
     //write status, we will need read status later for python script
     if (status === "granted") {

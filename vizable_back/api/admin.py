@@ -1,6 +1,6 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Retieval
+from .models import Retrieval
 
-admin.site.register(Retieval)
+admin.site.register(Retrieval)

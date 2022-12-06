@@ -11,6 +11,10 @@ from io import BytesIO
 import pathlib
 import gc
 import torch.nn as nn
+import os
+
+from deep_translator import GoogleTranslator
+from gtts import gTTS
 
 class VizWizData():
     def __init__(self):
@@ -121,3 +125,22 @@ class VizWizData():
         else:
             res = self.captions[df_inds]
         return res
+
+class Extensions():
+    def __init__(self, default_lang = 'en'):
+        self.default_lang = default_lang
+    def translation_function(self, captions):
+        translated_text = GoogleTranslator(source='auto', target=self.default_lang).translate_batch(captions) 
+        return translated_text
+    def multilingual_speech(self, mytext):
+        # Passing the text and language to the engine, 
+        # here we have marked slow=False. Which tells 
+        # the module that the converted audio should 
+        # have a high speed
+        myobj = gTTS(text=mytext, lang=self.default_lang, slow=False)
+        
+        # Saving the converted audio in a mp3
+        myobj.save("test.mp3")
+        
+        # # Playing the converted file
+        # os.system("mpg321 welcome.mp3")
