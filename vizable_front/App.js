@@ -3,6 +3,7 @@ import { Camera } from "expo-camera";
 import * as MediaLibrary from "expo-media-library";
 import * as Permissions from "expo-permissions";
 import React, { useEffect, useReducer, useRef, useState } from "react";
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 
 import {
@@ -10,10 +11,10 @@ import {
   View,
   TouchableOpacity,
   StyleSheet,
-  Image,
   StatusBar,
   Platform,
   NativeModules,
+  Dimensions, 
 } from "react-native";
 
 //setting our initial app state
@@ -23,7 +24,12 @@ const cameraState = {
   zoomValue: 0,
 };
 
+const winHeight = Dimensions.get('window').height;
+const winWidth = Dimensions.get('window').width;
+
 export default function App() {
+
+
 
   const deviceLanguage =
       Platform.OS === 'ios'
@@ -75,43 +81,45 @@ export default function App() {
   if (hasPermission === false) {
     return <Text>Please provide access to your camera</Text>;
   }
-//#E5E5E5
 
   return (
-    <View style={{ flex: 1, backgroundColor:  "#BDC0FE", }}>
+    <View style={{ flex: 1, backgroundColor:  "#e6f3ff"}}>
       <StatusBar/>
-      <Text style = {{fontFamily: "monospace", fontSize: 25, fontWeight: "bold", color: "#8187FD", margin: "1%", alignSelf:"center"}}>VIZABLE</Text>
-      <Text style = {{flex: 1, backgroundColor: "white", maxHeight: "10%", borderRadius: 20, margin: "2%"} }> 
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard
-      {'\n'}
-      {'\n'}
-      {deviceLanguage}
-      </Text>
+      <View style = {{flex:.5, flexDirection: "row", display: 'flex', alignItems: "center", justifyContent: "space-between"}}> 
+      <Text style = {{fontFamily: "monospace", fontSize: 25, fontWeight: "bold", color: "#8187FD", margin: "1%", alignSelf:"center", marginLeft: "auto", marginRight: "auto"}}>VIZABLE</Text>
+      <Ionicons name = 'information-circle-sharp' style = {{ color: '#8187FD', fontSize: 36, marginRight: "2%"}}></Ionicons>
+      </View>
       <Camera
         ref={camera}
         style={{ flex: 5}}
         type={cameraType}
-      />
+      />     
       <TouchableOpacity  style = {styles.btnSub} onPress = {clickPicture} >
-        <Text style = {{fontSize: 20, adjustFontSizeToFit: true, allowFontScaling: true, fontWeight: "bold", color: "white"}}>Take Picture</Text>
-      </TouchableOpacity>
-      
+        <Text style = {{fontSize: 20, adjustFontSizeToFit: true, allowFontScaling: true, fontWeight: "bold", color: "white", opacity: 1}}>Take Picture</Text>
+      </TouchableOpacity> 
       </View>
+      
 
 
   );
   
 }
-
+//responsive text
 const styles = StyleSheet.create({
   btnSub: {
-    flex: 1, 
-    maxHeight: "10%",
-    backgroundColor: "#8187FD",
+    width: winWidth*.95,
+    height: winHeight*.13,
+    alignSelf: 'center',
+    maxHeight: 300,
+    backgroundColor: "rgba(29, 40, 251, .7)",
     alignItems: "center",
-    justifyContent: "center",
-    margin: "2%", 
-    borderRadius: 20
+    justifyContent: "center", 
+    marginHorizontal: "2%", //need to center it 
+    position: "absolute",
+    bottom: winHeight*.02,
+    borderRadius: 8,
+
+
     
   }
 })
