@@ -27,9 +27,9 @@ const cameraState = {
 const winHeight = Dimensions.get('window').height;
 const winWidth = Dimensions.get('window').width;
 
+
+
 export default function App() {
-
-
 
   const deviceLanguage =
       Platform.OS === 'ios'
@@ -45,13 +45,20 @@ export default function App() {
 
   const camera =  useRef();
 
+  const [showCaption, setScaption] = useState(false)
+  
+
 //function for clicking picture
   const clickPicture = async () => {    
       let photo = await camera.current.takePictureAsync();
       const image_location = photo.uri; //store the cache location of the image
+      //maybe change 
+      setScaption(true)
       camera.current.pausePreview();
       await savePicture(image_location); //save it to the camera roll
       camera.current.resumePreview();
+      
+
   };
 
 //saving the image to camera roll
@@ -85,18 +92,29 @@ export default function App() {
   return (
     <View style={{ flex: 1, backgroundColor:  "#e6f3ff"}}>
       <StatusBar/>
-      <View style = {{flex:.5, flexDirection: "row", display: 'flex', alignItems: "center", justifyContent: "space-between"}}> 
-      <Text style = {{fontFamily: "monospace", fontSize: 25, fontWeight: "bold", color: "#8187FD", margin: "1%", alignSelf:"center", marginLeft: "auto", marginRight: "auto"}}>VIZABLE</Text>
-      <Ionicons name = 'information-circle-sharp' style = {{ color: '#8187FD', fontSize: 36, marginRight: "2%"}}></Ionicons>
+      <View style = {{flexDirection: "row"}}>
+        <Text style ={{flex:1, fontFamily: "monospace", fontSize: 25, fontWeight: "bold", color: "#8187FD", textAlign: "center", marginLeft: "4%", marginVertical: "1%"}}> Vizable</Text>
+        <Ionicons name = 'information-circle-sharp' style ={{fontSize: 34,alignSelf: "center",marginRight: "2%", color: '#8187FD' }}></Ionicons>
       </View>
+      
+      {/* {<!--Caption component -->} */}
       <Camera
         ref={camera}
-        style={{ flex: 5}}
+        style={{ flex:1}} //change back 
         type={cameraType}
       />     
+      { showCaption &&
+        <View style = {{height: 100,width: winWidth*.95,  backgroundColor: 'white', borderRadius: 8, alignSelf: "center",position: "absolute", top: 60, paddingHorizontal: "2%"}}> 
+        <Text>
+          Ipsum Loremmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+        </Text>
+        </View>
+      }
       <TouchableOpacity  style = {styles.btnSub} onPress = {clickPicture} >
         <Text style = {{fontSize: 20, adjustFontSizeToFit: true, allowFontScaling: true, fontWeight: "bold", color: "white", opacity: 1}}>Take Picture</Text>
-      </TouchableOpacity> 
+      </TouchableOpacity>
+      
+      
       </View>
       
 
@@ -119,7 +137,5 @@ const styles = StyleSheet.create({
     bottom: winHeight*.02,
     borderRadius: 8,
 
-
-    
   }
 })
