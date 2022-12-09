@@ -67,7 +67,7 @@ export default function App() {
       camera.current.resumePreview();
       playSound(); //here's where the sound is played
   };
-
+//Function to load the recording and play the sound 
   async function playSound() {
     console.log('Recording is being played');
     const { sound } = await Audio.Sound.createAsync( require('./recording/caption_recording.mp3')
@@ -97,7 +97,7 @@ export default function App() {
       const { status } = await Camera.requestCameraPermissionsAsync();
       setHasPermission(status === "granted");
     })();
-
+//here is where the app works on restarting the sound
     return sound
       ? () => {
           console.log('Unloading Sound');
