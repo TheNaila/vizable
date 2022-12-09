@@ -14,9 +14,11 @@ import {
   StatusBar,
   Platform,
   NativeModules,
-  Dimensions, 
+  Dimensions,
+  LogBox
 } from "react-native";
 
+LogBox.ignoreAllLogs();
 //setting our initial app state
 const cameraState = {
   cameraType: "back",
@@ -104,14 +106,14 @@ export default function App() {
         type={cameraType}
       />     
       { showCaption &&
-        <View style = {{height: 100,width: winWidth*.95,  backgroundColor: 'white', borderRadius: 8, alignSelf: "center",position: "absolute", top: 60, paddingHorizontal: "2%"}}> 
-        <Text>
-          Ipsum Loremmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+        <View style = {{height: winHeight*.1,width: winWidth*.95,  backgroundColor: 'white', borderRadius: 8, alignSelf: "center",position: "absolute", top: 60, paddingHorizontal: "2%"}}> 
+        <Text >
+        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
         </Text>
         </View>
       }
       <TouchableOpacity  style = {styles.btnSub} onPress = {clickPicture} >
-        <Text style = {{fontSize: 20, adjustFontSizeToFit: true, allowFontScaling: true, fontWeight: "bold", color: "white", opacity: 1}}>Take Picture</Text>
+        <Ionicons name = 'camera-sharp' style = {{fontSize: 60, color: '#FAEAFB'}}></Ionicons>
       </TouchableOpacity>
       
       
