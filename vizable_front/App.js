@@ -3,6 +3,7 @@ import { Camera } from "expo-camera";
 import * as MediaLibrary from "expo-media-library";
 import * as Permissions from "expo-permissions";
 import React, { useEffect, useReducer, useRef, useState } from "react";
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 
 import {
@@ -10,10 +11,10 @@ import {
   View,
   TouchableOpacity,
   StyleSheet,
-  Image,
   StatusBar,
   Platform,
   NativeModules,
+  Dimensions, 
 } from "react-native";
 
 //setting our initial app state
@@ -22,6 +23,11 @@ const cameraState = {
   flash: "off",
   zoomValue: 0,
 };
+
+const winHeight = Dimensions.get('window').height;
+const winWidth = Dimensions.get('window').width;
+
+
 
 export default function App() {
 
@@ -39,13 +45,20 @@ export default function App() {
 
   const camera =  useRef();
 
+  const [showCaption, setScaption] = useState(false)
+  
+
 //function for clicking picture
   const clickPicture = async () => {    
       let photo = await camera.current.takePictureAsync();
       const image_location = photo.uri; //store the cache location of the image
+      //maybe change 
+      setScaption(true)
       camera.current.pausePreview();
       await savePicture(image_location); //save it to the camera roll
       camera.current.resumePreview();
+      
+
   };
 
 //saving the image to camera roll
@@ -75,43 +88,54 @@ export default function App() {
   if (hasPermission === false) {
     return <Text>Please provide access to your camera</Text>;
   }
-//#E5E5E5
 
   return (
-    <View style={{ flex: 1, backgroundColor:  "#BDC0FE", }}>
+    <View style={{ flex: 1, backgroundColor:  "#e6f3ff"}}>
       <StatusBar/>
-      <Text style = {{fontFamily: "monospace", fontSize: 25, fontWeight: "bold", color: "#8187FD", margin: "1%", alignSelf:"center"}}>VIZABLE</Text>
-      <Text style = {{flex: 1, backgroundColor: "white", maxHeight: "10%", borderRadius: 20, margin: "2%"} }> 
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard
-      {'\n'}
-      {'\n'}
-      {deviceLanguage}
-      </Text>
+      <View style = {{flexDirection: "row"}}>
+        <Text style ={{flex:1, fontFamily: "monospace", fontSize: 25, fontWeight: "bold", color: "#8187FD", textAlign: "center", marginLeft: "4%", marginVertical: "1%"}}> Vizable</Text>
+        <Ionicons name = 'information-circle-sharp' style ={{fontSize: 34,alignSelf: "center",marginRight: "2%", color: '#8187FD' }}></Ionicons>
+      </View>
+      
+      {/* {<!--Caption component -->} */}
       <Camera
         ref={camera}
-        style={{ flex: 5}}
+        style={{ flex:1}} //change back 
         type={cameraType}
-      />
+      />     
+      { showCaption &&
+        <View style = {{height: 100,width: winWidth*.95,  backgroundColor: 'white', borderRadius: 8, alignSelf: "center",position: "absolute", top: 60, paddingHorizontal: "2%"}}> 
+        <Text>
+          Ipsum Loremmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+        </Text>
+        </View>
+      }
       <TouchableOpacity  style = {styles.btnSub} onPress = {clickPicture} >
-        <Text style = {{fontSize: 20, adjustFontSizeToFit: true, allowFontScaling: true, fontWeight: "bold", color: "white"}}>Take Picture</Text>
+        <Text style = {{fontSize: 20, adjustFontSizeToFit: true, allowFontScaling: true, fontWeight: "bold", color: "white", opacity: 1}}>Take Picture</Text>
       </TouchableOpacity>
       
+      
       </View>
+      
 
 
   );
   
 }
-
+//responsive text
 const styles = StyleSheet.create({
   btnSub: {
-    flex: 1, 
-    maxHeight: "10%",
-    backgroundColor: "#8187FD",
+    width: winWidth*.95,
+    height: winHeight*.13,
+    alignSelf: 'center',
+    maxHeight: 300,
+    backgroundColor: "rgba(29, 40, 251, .7)",
     alignItems: "center",
-    justifyContent: "center",
-    margin: "2%", 
-    borderRadius: 20
-    
+    justifyContent: "center", 
+    marginHorizontal: "2%", //need to center it 
+    position: "absolute",
+    bottom: winHeight*.02,
+    borderRadius: 8,
+
   }
 })
