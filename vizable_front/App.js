@@ -70,7 +70,7 @@ export default function App() {
 //Function to load the recording and play the sound 
   async function playSound() {
     console.log('Recording is being played');
-    const { sound } = await Audio.Sound.createAsync( require('./recording/caption_recording.mp3')
+    const { sound } = await Audio.Sound.createAsync( require('./recording/caption_recording.mp3') //CHANGE HERE
     );
     setSound(sound);
 
@@ -132,6 +132,7 @@ export default function App() {
         <View style = {{height: 100,width: winWidth*.95,  backgroundColor: 'white', borderRadius: 8, alignSelf: "center",position: "absolute", top: 60, paddingHorizontal: "2%"}}> 
         <Text style = {{fontSize: 20, adjustFontSizeToFit: true, allowFontScaling: true, fontWeight: "bold", color: "black", opacity: 1}} >
           Dim desk with chocolate and flask and books
+//           CHANGE HERE 
         </Text>
         </View>
       }
