@@ -3,6 +3,11 @@ import * as MediaLibrary from "expo-media-library";
 import * as Permissions from "expo-permissions";
 import React, { useEffect, useReducer, useRef, useState } from "react";
 import Ionicons from 'react-native-vector-icons/Ionicons';
+<<<<<<< HEAD
+=======
+import { Audio } from 'expo-av';
+
+>>>>>>> 18c7a2912d152f3459d002788885c5350d27854c
 
 
 import {
@@ -28,8 +33,19 @@ const winWidth = Dimensions.get('window').width;
 
 
 
+<<<<<<< HEAD
 export default function App() {
 
+=======
+
+
+export default function App() {
+
+  //for adding the sound
+  const [sound, setSound] = React.useState();
+
+
+>>>>>>> 18c7a2912d152f3459d002788885c5350d27854c
   const deviceLanguage =
       Platform.OS === 'ios'
         ? NativeModules.SettingsManager.settings.AppleLocale ||
@@ -44,7 +60,11 @@ export default function App() {
 
   const camera =  useRef();
 
+<<<<<<< HEAD
   const [showCaption, setScaption] = useState(false)
+=======
+  const [showCaption, setScaption] = useState(false);
+>>>>>>> 18c7a2912d152f3459d002788885c5350d27854c
   
 
 //function for clicking picture
@@ -56,9 +76,23 @@ export default function App() {
       camera.current.pausePreview();
       await savePicture(image_location); //save it to the camera roll
       camera.current.resumePreview();
+<<<<<<< HEAD
       
 
+=======
+      playSound(); //here's where the sound is played
+>>>>>>> 18c7a2912d152f3459d002788885c5350d27854c
   };
+//Function to load the recording and play the sound 
+  async function playSound() {
+    console.log('Recording is being played');
+    const { sound } = await Audio.Sound.createAsync( require('./recording/caption_recording.mp3') //CHANGE HERE
+    );
+    setSound(sound);
+
+    console.log('Playing Sound');
+    await sound.playAsync();
+  }
 
 //saving the image to camera roll
   const savePicture = async (photo) => {
@@ -79,7 +113,15 @@ export default function App() {
       const { status } = await Camera.requestCameraPermissionsAsync();
       setHasPermission(status === "granted");
     })();
-  }, []);
+//here is where the app works on restarting the sound
+    return sound
+      ? () => {
+          console.log('Unloading Sound');
+          sound.unloadAsync();
+        }
+      : undefined;
+  }, [sound]);
+
 
   if (hasPermission === null) {
     return <View />;
@@ -104,8 +146,14 @@ export default function App() {
       />     
       { showCaption &&
         <View style = {{height: 100,width: winWidth*.95,  backgroundColor: 'white', borderRadius: 8, alignSelf: "center",position: "absolute", top: 60, paddingHorizontal: "2%"}}> 
+<<<<<<< HEAD
         <Text>
           Ipsum Loremmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+=======
+        <Text style = {{fontSize: 20, adjustFontSizeToFit: true, allowFontScaling: true, fontWeight: "bold", color: "black", opacity: 1}} >
+          Dim desk with chocolate and flask and books
+//           CHANGE HERE 
+>>>>>>> 18c7a2912d152f3459d002788885c5350d27854c
         </Text>
         </View>
       }
@@ -119,6 +167,7 @@ export default function App() {
 
 
   );
+<<<<<<< HEAD
 <<<<<<< HEAD
   
 }
@@ -142,3 +191,24 @@ const styles = StyleSheet.create({
 =======
 }
 >>>>>>> c7df52938d44dad8c49e2a36cf4aca6c6102b761
+=======
+  
+}
+//responsive text
+const styles = StyleSheet.create({
+  btnSub: {
+    width: winWidth*.95,
+    height: winHeight*.13,
+    alignSelf: 'center',
+    maxHeight: 300,
+    backgroundColor: "rgba(29, 40, 251, .7)",
+    alignItems: "center",
+    justifyContent: "center", 
+    marginHorizontal: "2%", //need to center it 
+    position: "absolute",
+    bottom: winHeight*.02,
+    borderRadius: 8,
+
+  }
+})
+>>>>>>> 18c7a2912d152f3459d002788885c5350d27854c
