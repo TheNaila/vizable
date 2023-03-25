@@ -7,6 +7,7 @@ Advisors: SouYoung Jin, Peyton Greve
 ### Abstract 
 There are many in the US experiencing visual impairements. Our application presents a solution using machine learning to allow people to take an image on their phone and populate a caption that is converted to the language on their phone system. We use the VizWiz dataset, a collection of images taken by people who are blind and OpenAI's CLIP model. 
 
+Retrieval System File: https://github.com/TheNaila/vizable/blob/Aracely/vizable_back/api/retrievalsystem.py
 
 <img width= "500" src="https://user-images.githubusercontent.com/63077056/213947004-da058f4d-7ff3-459a-a5c9-7efc0ef9f241.png" alt="image">
 
