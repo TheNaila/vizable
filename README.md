@@ -18,8 +18,4 @@ There are many in the US experiencing visual impairements. Our application prese
 
 <img alt = "image" width= "500" src = "https://user-images.githubusercontent.com/63077056/213947032-c0205f63-1ff6-440b-b4e9-f7d33c371927.png">
 
-<img width="300" alt="image" src="https://user-images.githubusercontent.com/63077056/213946814-0ee4e5fc-49cd-43d8-b0e7-2de247d86e6b.png">
-
-
-Demo: https://youtu.be/CPAI3SdoC1Q
 
